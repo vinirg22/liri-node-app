@@ -16,9 +16,6 @@ if (command === "concert-this") {
   console.log("running concert this")
   // This will search the Bands in Town Artist Events API ("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp") for an artist and render the following information about each event to the terminal:
 
-  // Name of the venue
-  // Venue location
-  // Date of the Event (use moment to format this as "MM/DD/YYYY")
   var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
 
 
@@ -26,19 +23,15 @@ if (command === "concert-this") {
     console.log(response.data);
   });
 }
+  // node liri.js spotify-this-song '<song name here>'
 if (command === "spotify-this-song"); {
   // console.log("running spotify-this-song")
-  // node liri.js spotify-this-song '<song name here>'
-  //    This will show the following information about the song in your terminal/bash window
 
+  //    This will show the following information about the song in your terminal/bash window
   spotify.search({ type: 'track', query: input }, function (err, data) {
     if (err) {
       return console.log('Error occurred: ' + err);
     }
-    // Artist(s)
-    // The song's name
-    // A preview link of the song from Spotify
-    // The album that the song is from
     const items = data.tracks.items;
 
     for (let i = 0; i < items.lenght; i++) {
@@ -51,13 +44,24 @@ if (command === "spotify-this-song"); {
     }
   });
 }
-
-
-
-
-
-
-
 // node liri.js movie-this '<movie name here>'
+if (command === "movie-this") {
+  axios.get("http://www.omdbapi.com/?t=" + input + "&y=plot=short&apikey=" + keys.omdbKey.apiKey)
+  .then(function (response) {
+    const movie = response.data;
+    console.log("Movie Title: " + movie.Title);
+    console.log("Actors: " + movie.Actors);
+    console.log("Rotten Tomatoes Score: " + movier.Ratings[1].value);
+  })
+  .catch(function (err) {
+     console.log(err);
+  });
+}
 
 // node liri.js do-what-it-says
+
+
+
+
+
+
