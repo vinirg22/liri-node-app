@@ -8,7 +8,8 @@ var fs = require("fs");
 
 var spotify = new Spotify(keys.spotify);
 
-// var command = process.argv[2];
+
+//  var type = process.argv[2];
 // var input = process.argv.slice(3).join(" ");
 
 
@@ -73,7 +74,7 @@ var movieThis = function (movieName) {
 var select = function (type, input) {
   switch (type) {
     case "concert-this":
-      concertThis(inpout);
+      concertThis(input);
       break;
     case "spotify-this-song":
       spotifySearch(input);
@@ -81,14 +82,56 @@ var select = function (type, input) {
     case "movie-this":
       movieThis(input);
       break;
-    default:
+    case "do-what-it-says":
+      doWhatItSays();
+      break;
+      default:
+
       console.log("inputErr");
   }
 }
 var start = function (type, input) {
   select(type, input);
 }
-start(process.argv[2], process.argv[3]);
+start(process.argv[2], process.argv.slice(3).join(" "));
+
+var doWhatItSays = function () {
+  fs.readFile("random.txt", "utf8", function(err, data) {
+    if (err) {
+      return console.log(err);
+    }
+    data = data.split(",");
+    console.log(data[1]);
+    var newSong = data[1];
+    spotifySearch(newSong);
+  
+  })
+}
+//doWhatItSays();
+
+// // function total() {
+
+//   // We will read the existing bank file
+//   fs.readFile("bank.txt", "utf8", function(err, data) {
+//     if (err) {
+//       return console.log(err);
+//     }
+
+//     // Break down all the numbers inside
+//     data = data.split(", ");
+//     var result = 0;
+
+//     // Loop through those numbers and add them together to get a sum.
+//     for (var i = 0; i < data.length; i++) {
+//       if (parseFloat(data[i])) {
+//         result += parseFloat(data[i]);
+//       }
+//     }
+
+//     // We will then print the final balance rounded to two decimal places.
+//     console.log("You have a total of " + result.toFixed(2));
+//   });
+// }
 
 
 
