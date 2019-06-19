@@ -3,6 +3,7 @@ require("dotenv").config();
 var keys = require("./keys");
 var axios = require("axios");
 var Spotify = require('node-spotify-api');
+var fs = require("fs");
 // var dotenv = require("")
 
 var spotify = new Spotify(keys.spotify);
@@ -46,7 +47,7 @@ var spotifySearch = function (songName) {
       var albumName = items[i].album.name;
       console.log(artistName + " - " + songTitle);
       console.log("Preview URL: " + songPreviewUrl);
-      console.log("albumName " + albumName); 
+      console.log("albumName " + albumName);
       console.log("------------");
     }
   });
@@ -80,14 +81,14 @@ var select = function (type, input) {
     case "movie-this":
       movieThis(input);
       break;
-    default: 
-    console.log("inputErr");
+    default:
+      console.log("inputErr");
   }
 }
 var start = function (type, input) {
   select(type, input);
 }
-start (process.argv[2], process.argv[3]);
+start(process.argv[2], process.argv[3]);
 
 
 
